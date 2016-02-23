@@ -8,9 +8,9 @@ RESOURCE_LISTING_JSON_V2 = open(File.expand_path('../swagger_v2_api_declaration.
 class PetControllerV2
   include Swagger::Blocks
 
-  swagger_root host: 'petstore.swagger.wordnik.com' do
+  swagger_root :host => 'petstore.swagger.wordnik.com' do
     key :swagger, '2.0'
-    info version: '1.0.0' do
+    info :version => '1.0.0' do
       key :title, 'Swagger Petstore'
       key :description, 'A sample API that uses a petstore as an example to ' \
                         'demonstrate features in the swagger-2.0 specification'
@@ -26,7 +26,7 @@ class PetControllerV2
     key :schemes, ['http']
     key :consumes, ['application/json']
     key :produces, ['application/json']
-    security_definition :api_key, type: :apiKey do
+    security_definition :api_key, :type => :apiKey do
       key :name, :api_key
       key :in, :header
     end
@@ -38,9 +38,9 @@ class PetControllerV2
         key 'read:pets', 'read your pets'
       end
     end
-    tag name: 'pet' do
+    tag :name => 'pet' do
       key :description, 'Pets operations'
-      externalDocs description: 'Find more info here' do
+      externalDocs :description => 'Find more info here' do
         key :url, 'https://swagger.io'
       end
     end
@@ -77,7 +77,7 @@ class PetControllerV2
       end
       response 200 do
         key :description, 'pet response'
-        schema type: :array do
+        schema :type => :array do
           items do
             key :'$ref', :Pet
           end
@@ -112,7 +112,7 @@ class PetControllerV2
           key :'$ref', '#/parameters/Pet'
         end
       end
-      response :default, description: 'unexpected error' do
+      response :default, :description => 'unexpected error' do
         schema do
           key :'$ref', :ErrorModel
         end
@@ -150,7 +150,7 @@ class PetControllerV2
           key :'$ref', :ErrorModel
         end
       end
-      security api_key: []
+      security :api_key => []
       security do
         key :petstore_auth, ['write:pets', 'read:pets']
       end
@@ -183,7 +183,7 @@ end
 class PetV2
   include Swagger::Blocks
 
-  swagger_schema :Pet, required: [:id, :name] do
+  swagger_schema :Pet, :required => [:id, :name] do
     property :id do
       key :type, :integer
       key :format, :int64
